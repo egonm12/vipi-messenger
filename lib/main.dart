@@ -1,8 +1,9 @@
+import 'package:beamer/beamer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sandbox/modules/authentication/auth_app.dart';
 import 'package:sandbox/modules/authentication/logic/authentication_bloc.dart';
+import 'package:sandbox/routing/router.dart';
 
 import 'bloc_observer.dart';
 import 'firebase_options.dart';
@@ -44,7 +45,10 @@ class App extends StatelessWidget {
         create: (_) => AuthenticationBloc(
           authenticationRepository: _authenticationRepository,
         ),
-        child: AuthApp(),
+        child: MaterialApp.router(
+          routeInformationParser: BeamerParser(),
+          routerDelegate: AppRouter.routerDelegate,
+        ),
       ),
     );
   }
