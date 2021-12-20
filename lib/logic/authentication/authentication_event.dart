@@ -1,4 +1,4 @@
-part of 'authentication_bloc.dart';
+part of '../../../logic/authentication/authentication_bloc.dart';
 
 @freezed
 class AuthenticationEvent with _$AuthenticationEvent {

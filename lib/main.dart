@@ -2,12 +2,12 @@ import 'package:beamer/beamer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sandbox/modules/authentication/logic/authentication_bloc.dart';
+import 'package:sandbox/logic/authentication/authentication_bloc.dart';
+import 'package:sandbox/repositories/users_repository.dart';
 import 'package:sandbox/routing/router.dart';
 
-import 'bloc_observer.dart';
 import 'firebase_options.dart';
-import 'modules/authentication/data/repositories/authentication_repository.dart';
+import 'repositories/authentication_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +24,7 @@ void main() async {
         authenticationRepository: authenticationRepository,
       ),
     ),
-    blocObserver: AppBlocObserver(),
+    // blocObserver: AppBlocObserver(),
   );
 }
 
@@ -39,8 +39,15 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider<AuthenticationRepository>(
-      create: (_) => _authenticationRepository,
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<AuthenticationRepository>(
+          create: (_) => _authenticationRepository,
+        ),
+        RepositoryProvider<UsersRepository>(
+          create: (_) => UsersRepository(),
+        ),
+      ],
       child: BlocProvider<AuthenticationBloc>(
         create: (_) => AuthenticationBloc(
           authenticationRepository: _authenticationRepository,

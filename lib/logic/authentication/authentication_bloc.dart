@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:sandbox/modules/authentication/data/models/user.dart';
-import 'package:sandbox/modules/authentication/data/repositories/authentication_repository.dart';
+import 'package:sandbox/models/user/user.dart';
+import 'package:sandbox/repositories/authentication_repository.dart';
 
 part 'authentication_bloc.freezed.dart';
 part 'authentication_event.dart';

@@ -10,6 +10,7 @@ part 'user.g.dart';
 /// {@endtemplate}
 @freezed
 class User with _$User {
+  /// {@macro user}
   const User._();
 
   /// {@macro user}
