@@ -28,7 +28,6 @@ class ContactsBloc extends Bloc<ContactsEvent, ContactsState> {
     );
     try {
       final users = await _usersRepository.usersCollection.get();
-      await Future.delayed(const Duration(seconds: 1));
       emit(ContactsState.success(_withoutCurrentUser(users.docs)));
     } catch (e) {
       emit(ContactsState.error());

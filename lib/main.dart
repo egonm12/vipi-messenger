@@ -3,10 +3,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sandbox/logic/authentication/authentication_bloc.dart';
+import 'package:sandbox/repositories/chat_repository.dart';
 import 'package:sandbox/repositories/users_repository.dart';
 import 'package:sandbox/routing/router.dart';
 
 import 'firebase_options.dart';
+import 'logic/chat/chat_bloc.dart';
 import 'repositories/authentication_repository.dart';
 
 void main() async {
@@ -48,10 +50,22 @@ class App extends StatelessWidget {
           create: (_) => UsersRepository(),
         ),
       ],
-      child: BlocProvider<AuthenticationBloc>(
-        create: (_) => AuthenticationBloc(
-          authenticationRepository: _authenticationRepository,
-        ),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<AuthenticationBloc>(
+            create: (_) => AuthenticationBloc(
+              authenticationRepository: _authenticationRepository,
+            ),
+          ),
+          BlocProvider<ChatBloc>(
+            create: (context) => ChatBloc(
+              chatRepository: ChatRepository(
+                authenticationRepository: _authenticationRepository,
+              ),
+              authenticationRepository: _authenticationRepository,
+            ),
+          ),
+        ],
         child: MaterialApp.router(
           routeInformationParser: BeamerParser(),
           routerDelegate: AppRouter.routerDelegate,

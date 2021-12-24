@@ -2,6 +2,8 @@ import 'package:beamer/beamer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/src/provider.dart';
 import 'package:sandbox/logic/authentication/authentication_bloc.dart';
+import 'package:sandbox/models/chat/chat.dart';
+import 'package:sandbox/ui/screens/chat_window/chat_window_screen.dart';
 import 'package:sandbox/ui/screens/chats_overview/chats_overview_screen.dart';
 import 'package:sandbox/ui/screens/contacts_overview/contacts_overview_screen.dart';
 import 'package:sandbox/ui/screens/profile/profile_screen.dart';
@@ -11,6 +13,7 @@ abstract class AppRouter {
   static const loginRoute = '/login';
   static const profileRoute = '/profile';
   static const chatsOverviewRoute = '/chats';
+  static chatDetailRoute(Chat chat) => '$chatsOverviewRoute/${chat.id}';
   static const contactsOverviewRoute = '/contacts';
 
   static final List<BeamGuard> guards = [
@@ -45,6 +48,10 @@ abstract class AppRouter {
         loginRoute: (_, __, ___) => const SignInScreen(),
         profileRoute: (_, __, ___) => const ProfileScreen(),
         chatsOverviewRoute: (_, __, ___) => const ChatOverviewScreen(),
+        '$chatsOverviewRoute/:chatId': (context, state, data) =>
+            ChatWindowScreen(
+              chatId: state.pathParameters['chatId'] ?? '',
+            ),
         contactsOverviewRoute: (_, __, ___) => const ContactsOverviewScreen(),
       },
     ),
