@@ -33,7 +33,7 @@ class ChatRepository {
     try {
       final _chats = await chats.get();
 
-      _chats.docs
+      return _chats.docs
           .where(
             (_chat) =>
                 _chat.data().isPrivateChat &&

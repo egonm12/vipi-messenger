@@ -22,6 +22,10 @@ class _$ChatEventTearOff {
       user,
     );
   }
+
+  _CloseChat closeChat() {
+    return const _CloseChat();
+  }
 }
 
 /// @nodoc
@@ -29,43 +33,43 @@ const $ChatEvent = _$ChatEventTearOff();
 
 /// @nodoc
 mixin _$ChatEvent {
-  User get user => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(User user) startNewChat,
+    required TResult Function() closeChat,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(User user)? startNewChat,
+    TResult Function()? closeChat,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(User user)? startNewChat,
+    TResult Function()? closeChat,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_StartNewChat value) startNewChat,
+    required TResult Function(_CloseChat value) closeChat,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_StartNewChat value)? startNewChat,
+    TResult Function(_CloseChat value)? closeChat,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_StartNewChat value)? startNewChat,
+    TResult Function(_CloseChat value)? closeChat,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $ChatEventCopyWith<ChatEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -73,9 +77,6 @@ mixin _$ChatEvent {
 abstract class $ChatEventCopyWith<$Res> {
   factory $ChatEventCopyWith(ChatEvent value, $Res Function(ChatEvent) then) =
       _$ChatEventCopyWithImpl<$Res>;
-  $Res call({User user});
-
-  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -85,37 +86,15 @@ class _$ChatEventCopyWithImpl<$Res> implements $ChatEventCopyWith<$Res> {
   final ChatEvent _value;
   // ignore: unused_field
   final $Res Function(ChatEvent) _then;
-
-  @override
-  $Res call({
-    Object? user = freezed,
-  }) {
-    return _then(_value.copyWith(
-      user: user == freezed
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as User,
-    ));
-  }
-
-  @override
-  $UserCopyWith<$Res> get user {
-    return $UserCopyWith<$Res>(_value.user, (value) {
-      return _then(_value.copyWith(user: value));
-    });
-  }
 }
 
 /// @nodoc
-abstract class _$StartNewChatCopyWith<$Res>
-    implements $ChatEventCopyWith<$Res> {
+abstract class _$StartNewChatCopyWith<$Res> {
   factory _$StartNewChatCopyWith(
           _StartNewChat value, $Res Function(_StartNewChat) then) =
       __$StartNewChatCopyWithImpl<$Res>;
-  @override
   $Res call({User user});
 
-  @override
   $UserCopyWith<$Res> get user;
 }
 
@@ -139,6 +118,13 @@ class __$StartNewChatCopyWithImpl<$Res> extends _$ChatEventCopyWithImpl<$Res>
           : user // ignore: cast_nullable_to_non_nullable
               as User,
     ));
+  }
+
+  @override
+  $UserCopyWith<$Res> get user {
+    return $UserCopyWith<$Res>(_value.user, (value) {
+      return _then(_value.copyWith(user: value));
+    });
   }
 }
 
@@ -176,6 +162,7 @@ class _$_StartNewChat implements _StartNewChat {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(User user) startNewChat,
+    required TResult Function() closeChat,
   }) {
     return startNewChat(user);
   }
@@ -184,6 +171,7 @@ class _$_StartNewChat implements _StartNewChat {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(User user)? startNewChat,
+    TResult Function()? closeChat,
   }) {
     return startNewChat?.call(user);
   }
@@ -192,6 +180,7 @@ class _$_StartNewChat implements _StartNewChat {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(User user)? startNewChat,
+    TResult Function()? closeChat,
     required TResult orElse(),
   }) {
     if (startNewChat != null) {
@@ -204,6 +193,7 @@ class _$_StartNewChat implements _StartNewChat {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_StartNewChat value) startNewChat,
+    required TResult Function(_CloseChat value) closeChat,
   }) {
     return startNewChat(this);
   }
@@ -212,6 +202,7 @@ class _$_StartNewChat implements _StartNewChat {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_StartNewChat value)? startNewChat,
+    TResult Function(_CloseChat value)? closeChat,
   }) {
     return startNewChat?.call(this);
   }
@@ -220,6 +211,7 @@ class _$_StartNewChat implements _StartNewChat {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_StartNewChat value)? startNewChat,
+    TResult Function(_CloseChat value)? closeChat,
     required TResult orElse(),
   }) {
     if (startNewChat != null) {
@@ -232,12 +224,113 @@ class _$_StartNewChat implements _StartNewChat {
 abstract class _StartNewChat implements ChatEvent {
   const factory _StartNewChat(User user) = _$_StartNewChat;
 
-  @override
   User get user;
-  @override
   @JsonKey(ignore: true)
   _$StartNewChatCopyWith<_StartNewChat> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$CloseChatCopyWith<$Res> {
+  factory _$CloseChatCopyWith(
+          _CloseChat value, $Res Function(_CloseChat) then) =
+      __$CloseChatCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$CloseChatCopyWithImpl<$Res> extends _$ChatEventCopyWithImpl<$Res>
+    implements _$CloseChatCopyWith<$Res> {
+  __$CloseChatCopyWithImpl(_CloseChat _value, $Res Function(_CloseChat) _then)
+      : super(_value, (v) => _then(v as _CloseChat));
+
+  @override
+  _CloseChat get _value => super._value as _CloseChat;
+}
+
+/// @nodoc
+
+class _$_CloseChat implements _CloseChat {
+  const _$_CloseChat();
+
+  @override
+  String toString() {
+    return 'ChatEvent.closeChat()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _CloseChat);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(User user) startNewChat,
+    required TResult Function() closeChat,
+  }) {
+    return closeChat();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(User user)? startNewChat,
+    TResult Function()? closeChat,
+  }) {
+    return closeChat?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(User user)? startNewChat,
+    TResult Function()? closeChat,
+    required TResult orElse(),
+  }) {
+    if (closeChat != null) {
+      return closeChat();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_StartNewChat value) startNewChat,
+    required TResult Function(_CloseChat value) closeChat,
+  }) {
+    return closeChat(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_StartNewChat value)? startNewChat,
+    TResult Function(_CloseChat value)? closeChat,
+  }) {
+    return closeChat?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_StartNewChat value)? startNewChat,
+    TResult Function(_CloseChat value)? closeChat,
+    required TResult orElse(),
+  }) {
+    if (closeChat != null) {
+      return closeChat(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CloseChat implements ChatEvent {
+  const factory _CloseChat() = _$_CloseChat;
 }
 
 /// @nodoc

@@ -18,6 +18,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     required this.authenticationRepository,
   }) : super(ChatState.chatClosed()) {
     on<_StartNewChat>(_startNewChat);
+    on<_CloseChat>(_closeChat);
   }
 
   final ChatRepository chatRepository;
@@ -27,13 +28,12 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     try {
       late Chat newChat;
       final chats = await chatRepository.chatsFromCurrentUser();
-      print(chats);
-      final existingChat = chats?.firstWhereOrNull((chat) {
-        print('chat $chat');
-        return chat.data().users[event.user.id] != null;
-      })?.data();
 
-      print('existingChat ${existingChat}');
+      final existingChat = chats
+          ?.firstWhereOrNull(
+              (chat) => chat.data().users.contains(event.user.id))
+          ?.data();
+
       final currentUser = authenticationRepository.currentUser;
       final otherUser = event.user;
 
@@ -57,4 +57,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       print(e);
     }
   }
+
+  void _closeChat(_CloseChat event, Emitter<ChatState> emit) =>
+      emit(ChatState.chatClosed());
 }

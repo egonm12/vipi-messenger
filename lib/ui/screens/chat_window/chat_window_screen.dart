@@ -12,11 +12,11 @@ class ChatWindowScreen extends StatelessWidget {
 
   final String chatId;
 
-  late final UsersRepository _usersRepository;
-
   /// returns the [User]'s model for each user that is referenced in the chat
   Future<List<DocumentSnapshot<User>>> _fetchChatUsers(
       BuildContext context, List<String> users) async {
+    final UsersRepository _usersRepository =
+        RepositoryProvider.of<UsersRepository>(context);
     final List<DocumentSnapshot<User>> _users = [];
     for (final userId in users) {
       _users.add(await _usersRepository.userSnapshot(userId));
@@ -29,8 +29,7 @@ class ChatWindowScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final User _currentUser =
         RepositoryProvider.of<AuthenticationRepository>(context).currentUser;
-
-    _usersRepository = RepositoryProvider.of<UsersRepository>(context);
+    final _chatBloc = BlocProvider.of<ChatBloc>(context);
 
     return BlocBuilder<ChatBloc, ChatState>(
       builder: (context, state) => state.when(
@@ -44,12 +43,14 @@ class ChatWindowScreen extends StatelessWidget {
                       .where((user) => user.data()?.id != _currentUser.id)
                       .toList();
 
-                  print(otherUsers);
                   return Scaffold(
                     appBar: AppBar(
                       leading: IconButton(
                         icon: Icon(Icons.arrow_back),
-                        onPressed: Beamer.of(context).beamBack,
+                        onPressed: () {
+                          Beamer.of(context).beamBack();
+                          _chatBloc.add(ChatEvent.closeChat());
+                        },
                       ),
                       title: Text(
                         chat.isPrivateChat
